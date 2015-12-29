@@ -22,18 +22,14 @@
 
 @implementation _MiscMergeEndloopCommand
 
-- (void)dealloc
-{
-    [loopName release];
-    [super dealloc];
-}
+
 
 - (BOOL)parseFromScanner:(NSScanner *)aScanner template:(MiscMergeTemplate *)template
 {
     _MiscMergeLoopCommand *loopCommand = [[template currentCommandBlock] owner];
 
     [self eatKeyWord:@"endloop" fromScanner:aScanner isOptional:NO];
-    loopName = [[self getArgumentStringFromScanner:aScanner toEnd:NO] retain];
+    loopName = [self getArgumentStringFromScanner:aScanner toEnd:NO];
 
     if (![loopCommand isKindOfCommandClass:@"Loop"] ||
         ([loopName length] > 0 && [[loopCommand loopName] length] > 0 &&

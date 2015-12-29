@@ -30,18 +30,12 @@
     return self;
 }
 
-- (void)dealloc
-{
-    [trueBlock release];
-    [elseBlock release];
-    [expression release];
-    [super dealloc];
-}
+
 
 - (BOOL)parseFromScanner:(NSScanner *)aScanner template:(MiscMergeTemplate *)template
 {
     [self eatKeyWord:@"if" fromScanner:aScanner isOptional:NO];
-    expression = [[self getExpressionFromScanner:aScanner] retain];
+    expression = [self getExpressionFromScanner:aScanner];
     [template pushCommandBlock:trueBlock];
     return YES;
 }

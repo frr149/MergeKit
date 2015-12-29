@@ -67,13 +67,7 @@
  * and how to add custom commands to the framework.
 "*/
 
-- (void)dealloc
-{
-	[template release];
-	[engine release];
-	[dataArray release];
-	[super dealloc];
-}
+
 
 /*"
  * Returns the merge engine, an instance of MiscMergeEngine, that will be
@@ -110,8 +104,8 @@
 {
     if (!merging && template != aTemplate)
     {
-        [template release];
-        template = [aTemplate retain];
+        
+        template = aTemplate;
     }
 }
 
@@ -123,8 +117,8 @@
 {
     if (!merging && dataArray != aList)
     {
-        [dataArray release];
-        dataArray = [aList retain];
+
+        dataArray = aList;
     }
 }
 
@@ -140,8 +134,8 @@
 {
     if (!merging && engine != anEngine)
     {
-        [engine release];
-        engine = [anEngine retain];
+
+        engine = anEngine;
     }
 }
 
@@ -194,7 +188,7 @@
 
     if (createdEngine) // don't keep it hanging around
     {
-        [engine release];
+        
         engine = nil;
     }
     merging = NO;

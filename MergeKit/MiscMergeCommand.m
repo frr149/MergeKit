@@ -69,7 +69,7 @@
 
     /* +whitespaceAndNewlineCharacterSet doesn't have \r ! */
     if (whiteSet == nil)
-        whiteSet = [[NSCharacterSet characterSetWithCharactersInString:@" \t\n\r\v\f"] retain];
+        whiteSet = [NSCharacterSet characterSetWithCharactersInString:@" \t\n\r\v\f"];
     [scanner setCharactersToBeSkipped:whiteSet];
 
     return [self parseFromScanner:scanner template:template];
@@ -143,9 +143,9 @@
 
 - _getQuotedArgumentStringFromScanner:(NSScanner *)scanner toEnd:(BOOL)endFlag quoteCharacter:(char)quoteCharacter
 {
-    NSMutableString *parsedString = [[[NSMutableString alloc] init] autorelease];
+    NSMutableString *parsedString = [[NSMutableString alloc] init];
     NSCharacterSet *stopSet = [NSCharacterSet characterSetWithCharactersInString:[NSString stringWithFormat:@"\\%c", quoteCharacter]];
-    NSCharacterSet *origSkipSet = [[[scanner charactersToBeSkipped] retain] autorelease];
+    NSCharacterSet *origSkipSet = [scanner charactersToBeSkipped];
     NSString *workString = nil;
     NSString *quoteCharString = [NSString stringWithFormat:@"%c", quoteCharacter];
 

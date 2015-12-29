@@ -22,11 +22,7 @@
 
 @implementation _MiscMergeDelayedParseCommand
 
-- (void)dealloc
-{
-    [unparsedCommand release];
-    [super dealloc];
-}
+
 
 - (BOOL)parseFromString:(NSString *)aString template:(MiscMergeTemplate *)template
 {
@@ -61,9 +57,6 @@
     [newCommand parseFromString:result template:myTemplate];
     [aMerger executeCommand:newCommand];
 
-    [newCommand release];
-    [newTemplate release];
-    [newEngine release];
     return MiscMergeCommandExitNormal;
 }
 

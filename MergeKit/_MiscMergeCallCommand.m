@@ -34,13 +34,6 @@
     return self;
 }
 
-- (void)dealloc
-{
-    [procedureName release];
-    [argumentArray release];
-    [quotedArray release];
-    [super dealloc];
-}
 
 - (BOOL)parseFromScanner:(NSScanner *)aScanner template:(MiscMergeTemplate *)template
 {

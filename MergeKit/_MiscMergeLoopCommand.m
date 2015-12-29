@@ -33,16 +33,7 @@
     return self;
 }
 
-- (void)dealloc
-{
-    [indexName release];
-    [loopName release];
-    [commandBlock release];
-    [startKey release];
-    [stopKey release];
-    [stepKey release];
-    [super dealloc];
-}
+
 
 - (NSString *)validateStep:(int)step
 {
@@ -79,11 +70,11 @@
 {
     [self eatKeyWord:@"loop" fromScanner:aScanner isOptional:NO];
 
-    indexName  = [[self getArgumentStringFromScanner:aScanner toEnd:NO] retain];
-    startKey   = [[self getPrimaryExpressionFromScanner:aScanner] retain];
-    stopKey    = [[self getPrimaryExpressionFromScanner:aScanner] retain];
-    stepKey    = [[self getPrimaryExpressionFromScanner:aScanner] retain];
-    loopName   = [[self getArgumentStringFromScanner:aScanner toEnd:NO] retain];
+    indexName  = [self getArgumentStringFromScanner:aScanner toEnd:NO] ;
+    startKey   = [self getPrimaryExpressionFromScanner:aScanner];
+    stopKey    = [self getPrimaryExpressionFromScanner:aScanner];
+    stepKey    = [self getPrimaryExpressionFromScanner:aScanner];
+    loopName   = [self getArgumentStringFromScanner:aScanner toEnd:NO];
 
     [template pushCommandBlock:commandBlock];
 

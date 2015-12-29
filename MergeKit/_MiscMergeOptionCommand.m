@@ -35,11 +35,7 @@ typedef enum _OptionType {
 
 @implementation _MiscMergeOptionCommand
 
-- (void)dealloc
-{
-    [value1 release];
-    [super dealloc];
-}
+
 
 /*" This method will parse a option command in a template. Options can affect the template
 processing or the runtime.
@@ -63,7 +59,7 @@ option nilLookupResult Nil* | KeyIfQuoted | Key | KeyWithDelims
 
     if ( NSOrderedSame == [option caseInsensitiveCompare:@"recursiveLookups"] ) {
         optionType = RecursiveLookups;
-        value1 = [[self getArgumentStringFromScanner:aScanner toEnd:NO] retain];
+        value1 = [self getArgumentStringFromScanner:aScanner toEnd:NO];
     }
 
     else if ( NSOrderedSame == [option caseInsensitiveCompare:@"delimiters"] ) {

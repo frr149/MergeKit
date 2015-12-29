@@ -22,18 +22,13 @@
 
 @implementation _MiscMergeEndprocedureCommand
 
-- (void)dealloc
-{
-    [procName release];
-    [super dealloc];
-}
 
 - (BOOL)parseFromScanner:(NSScanner *)aScanner template:(MiscMergeTemplate *)template
 {
     _MiscMergeProcedureCommand *procCommand = [[template currentCommandBlock] owner];
 
     [self eatKeyWord:@"endprocedure" fromScanner:aScanner isOptional:NO];
-    procName = [[self getArgumentStringFromScanner:aScanner toEnd:NO] retain];
+    procName = [self getArgumentStringFromScanner:aScanner toEnd:NO];
 
     if (![procCommand isKindOfCommandClass:@"Procedure"] ||
         ([procName length] > 0 && [[procCommand procedureName] length] > 0 &&

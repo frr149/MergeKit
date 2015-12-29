@@ -21,17 +21,13 @@
 
 @implementation _MiscMergeDebugCommand
 
-- (void)dealloc
-{
-    [theText release];
-    [super dealloc];
-}
+
 
 - (BOOL)parseFromScanner:(NSScanner *)aScanner template:(MiscMergeTemplate *)template
 {
     if (![self eatKeyWord:@"debug" fromScanner:aScanner isOptional:NO]) return NO;
 
-    theText = [[[aScanner remainingString] stringByTrimmingLeadWhitespace] retain];
+    theText = [[aScanner remainingString] stringByTrimmingLeadWhitespace];
 
     return YES;
 }

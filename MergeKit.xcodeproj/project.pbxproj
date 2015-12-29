@@ -116,9 +116,6 @@
 		ED3CBBED1C33088C005F02DD /* MiscMergeTemplate.h in Headers */ = {isa = PBXBuildFile; fileRef = ED3CBBD21C33088C005F02DD /* MiscMergeTemplate.h */; };
 		ED3CBBEE1C33088C005F02DD /* MiscMergeTemplate.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3CBBD31C33088C005F02DD /* MiscMergeTemplate.m */; };
 		ED3CBBEF1C33088C005F02DD /* MiscMergeTemplate.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3CBBD31C33088C005F02DD /* MiscMergeTemplate.m */; };
-		ED3CBBF01C33088C005F02DD /* NSNull.h in Headers */ = {isa = PBXBuildFile; fileRef = ED3CBBD41C33088C005F02DD /* NSNull.h */; };
-		ED3CBBF11C33088C005F02DD /* NSNull.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3CBBD51C33088C005F02DD /* NSNull.m */; };
-		ED3CBBF21C33088C005F02DD /* NSNull.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3CBBD51C33088C005F02DD /* NSNull.m */; };
 		ED3CBBF31C33088C005F02DD /* NSScanner+MiscMerge.h in Headers */ = {isa = PBXBuildFile; fileRef = ED3CBBD61C33088C005F02DD /* NSScanner+MiscMerge.h */; };
 		ED3CBBF41C33088C005F02DD /* NSScanner+MiscMerge.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3CBBD71C33088C005F02DD /* NSScanner+MiscMerge.m */; };
 		ED3CBBF51C33088C005F02DD /* NSScanner+MiscMerge.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3CBBD71C33088C005F02DD /* NSScanner+MiscMerge.m */; };
@@ -218,8 +215,6 @@
 		ED3CBBD11C33088C005F02DD /* MiscMergeSpike_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MiscMergeSpike_Prefix.pch; sourceTree = "<group>"; };
 		ED3CBBD21C33088C005F02DD /* MiscMergeTemplate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MiscMergeTemplate.h; sourceTree = "<group>"; };
 		ED3CBBD31C33088C005F02DD /* MiscMergeTemplate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MiscMergeTemplate.m; sourceTree = "<group>"; };
-		ED3CBBD41C33088C005F02DD /* NSNull.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSNull.h; sourceTree = "<group>"; };
-		ED3CBBD51C33088C005F02DD /* NSNull.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSNull.m; sourceTree = "<group>"; };
 		ED3CBBD61C33088C005F02DD /* NSScanner+MiscMerge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSScanner+MiscMerge.h"; sourceTree = "<group>"; };
 		ED3CBBD71C33088C005F02DD /* NSScanner+MiscMerge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSScanner+MiscMerge.m"; sourceTree = "<group>"; };
 		ED3CBBD81C33088C005F02DD /* NSString+MiscAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MiscAdditions.h"; sourceTree = "<group>"; };
@@ -369,8 +364,6 @@
 				ED3CBBD11C33088C005F02DD /* MiscMergeSpike_Prefix.pch */,
 				ED3CBBD21C33088C005F02DD /* MiscMergeTemplate.h */,
 				ED3CBBD31C33088C005F02DD /* MiscMergeTemplate.m */,
-				ED3CBBD41C33088C005F02DD /* NSNull.h */,
-				ED3CBBD51C33088C005F02DD /* NSNull.m */,
 				ED3CBBD61C33088C005F02DD /* NSScanner+MiscMerge.h */,
 				ED3CBBD71C33088C005F02DD /* NSScanner+MiscMerge.m */,
 				ED3CBBD81C33088C005F02DD /* NSString+MiscAdditions.h */,
@@ -428,7 +421,6 @@
 				ED3CBBB21C330865005F02DD /* _MiscMergeNextCommand.h in Headers */,
 				ED3CBB761C330865005F02DD /* _MiscMergeCommentCommand.h in Headers */,
 				ED3CBBE91C33088C005F02DD /* MiscMergeFunctions.h in Headers */,
-				ED3CBBF01C33088C005F02DD /* NSNull.h in Headers */,
 				ED3CBBDA1C33088C005F02DD /* MiscMergeCommand.h in Headers */,
 				ED3CBBA91C330865005F02DD /* _MiscMergeIncludeCommand.h in Headers */,
 				ED3CBB9A1C330865005F02DD /* _MiscMergeEndwhileCommand.h in Headers */,
@@ -567,7 +559,6 @@
 				ED3CBB7A1C330865005F02DD /* _MiscMergeContinueCommand.m in Sources */,
 				ED3CBB741C330865005F02DD /* _MiscMergeCallCommand.m in Sources */,
 				ED3CBB801C330865005F02DD /* _MiscMergeDateCommand.m in Sources */,
-				ED3CBBF11C33088C005F02DD /* NSNull.m in Sources */,
 				ED3CBBEA1C33088C005F02DD /* MiscMergeFunctions.m in Sources */,
 				ED3CBB9B1C330865005F02DD /* _MiscMergeEndwhileCommand.m in Sources */,
 				ED3CBB711C330865005F02DD /* _MiscMergeBreakCommand.m in Sources */,
@@ -595,7 +586,6 @@
 				ED3CBB811C330865005F02DD /* _MiscMergeDateCommand.m in Sources */,
 				ED3CBBFE1C3308AB005F02DD /* KeyValue+MiscMerge.m in Sources */,
 				ED3CBB8A1C330865005F02DD /* _MiscMergeElseCommand.m in Sources */,
-				ED3CBBF21C33088C005F02DD /* NSNull.m in Sources */,
 				ED3CBBC01C330865005F02DD /* _MiscMergeSetCommand.m in Sources */,
 				ED3CBB871C330865005F02DD /* _MiscMergeDelayedParseCommand.m in Sources */,
 				ED3CBB721C330865005F02DD /* _MiscMergeBreakCommand.m in Sources */,

@@ -32,24 +32,16 @@
     return self;
 }
 
-- (void)dealloc
-{
-    [itemName release];
-    [arrayField release];
-    [arrayExpression release];
-    [loopName release];
-    [commandBlock release];
-    [super dealloc];
-}
+
 
 - (BOOL)parseFromScanner:(NSScanner *)aScanner template:(MiscMergeTemplate *)template
 {
     [self eatKeyWord:@"foreach" fromScanner:aScanner isOptional:NO];
 
-    itemName = [[self getArgumentStringFromScanner:aScanner toEnd:NO] retain];
+    itemName = [self getArgumentStringFromScanner:aScanner toEnd:NO];
     //arrayField = [[self getArgumentStringFromScanner:aScanner toEnd:NO quotes:&arrayQuote] retain];
-    arrayExpression = [[self getExpressionFromScanner:aScanner] retain];
-    loopName = [[self getArgumentStringFromScanner:aScanner toEnd:NO] retain];
+    arrayExpression = [self getExpressionFromScanner:aScanner];
+    loopName = [self getArgumentStringFromScanner:aScanner toEnd:NO];
 
     [template pushCommandBlock:commandBlock];
 

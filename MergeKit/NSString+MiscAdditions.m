@@ -33,7 +33,7 @@
     static NSCharacterSet *whiteSet = nil;
 
     if (whiteSet == nil)
-        whiteSet = [[NSCharacterSet characterSetWithCharactersInString:@" \t\n\r\v\f"] retain];
+        whiteSet = [NSCharacterSet characterSetWithCharactersInString:@" \t\n\r\v\f"] ;
 
     return whiteSet;
 }

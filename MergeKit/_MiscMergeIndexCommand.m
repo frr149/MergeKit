@@ -21,17 +21,13 @@
 
 @implementation _MiscMergeIndexCommand
 
-- (void)dealloc
-{
-    [arrayField release];
-    [super dealloc];
-}
+
 
 - (BOOL)parseFromScanner:(NSScanner *)aScanner template:(MiscMergeTemplate *)template
 {
     [self eatKeyWord:@"index" fromScanner:aScanner isOptional:NO];
-    arrayField = [[self getArgumentStringFromScanner:aScanner toEnd:NO quotes:&arrayQuote] retain];
-    theIndex = [[self getPrimaryExpressionFromScanner:aScanner] retain];
+    arrayField = [self getArgumentStringFromScanner:aScanner toEnd:NO quotes:&arrayQuote];
+    theIndex = [self getPrimaryExpressionFromScanner:aScanner];
     return YES;
 }
 

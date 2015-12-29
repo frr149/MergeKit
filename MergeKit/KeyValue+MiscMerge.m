@@ -42,7 +42,7 @@ static Ivar_t class_getInstanceVariable(Class aClass, const char *name);
     NSRange dotRange;
 
     if ( dotSet == nil ) {
-        dotSet = [[NSCharacterSet characterSetWithRange:NSMakeRange((unsigned int)'.', 1)] retain];
+        dotSet = [NSCharacterSet characterSetWithRange:NSMakeRange((unsigned int)'.', 1)];
     }
 
     dotRange = [keyPath rangeOfCharacterFromSet:dotSet];

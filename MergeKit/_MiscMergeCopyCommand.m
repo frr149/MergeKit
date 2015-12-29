@@ -20,17 +20,13 @@
 
 @implementation _MiscMergeCopyCommand
 
-- (void)dealloc
-{
-    [theText release];
-    [super dealloc];
-}
+
 
 - (BOOL)parseFromScanner:(NSScanner *)aScanner template:(MiscMergeTemplate *)template
 {
     if (![self eatKeyWord:@"copy" fromScanner:aScanner isOptional:NO]) return NO;
 
-    theText = [[[aScanner remainingString] stringByTrimmingLeadWhitespace] retain];
+    theText = [[aScanner remainingString] stringByTrimmingLeadWhitespace] ;
 
     return YES;
 }
@@ -38,7 +34,7 @@
 /*" Special method used by the template "*/
 - (void)parseFromRawString:(NSString *)aString
 {
-    theText = [aString retain];
+    theText = aString;
 }
 
 - (MiscMergeCommandExitType)executeForMerge:(MiscMergeEngine *)aMerger

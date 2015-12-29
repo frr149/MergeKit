@@ -22,18 +22,14 @@
 
 @implementation _MiscMergeEndforeachCommand
 
-- (void)dealloc
-{
-    [loopName release];
-    [super dealloc];
-}
+
 
 - (BOOL)parseFromScanner:(NSScanner *)aScanner template:(MiscMergeTemplate *)template
 {
     _MiscMergeForeachCommand *foreachCommand = [[template currentCommandBlock] owner];
 
     [self eatKeyWord:@"endforeach" fromScanner:aScanner isOptional:NO];
-    loopName = [[self getArgumentStringFromScanner:aScanner toEnd:NO] retain];
+    loopName = [self getArgumentStringFromScanner:aScanner toEnd:NO];
 
     if (![foreachCommand isKindOfCommandClass:@"Foreach"] ||
         ([loopName length] > 0 && [[foreachCommand loopName] length] > 0 &&

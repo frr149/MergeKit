@@ -39,14 +39,7 @@ typedef enum _ArgTypes {
     return self;
 }
 
-- (void)dealloc
-{
-    [commandBlock release];
-    [procedureName release];
-    [argumentArray release];
-    [argumentTypes release];
-    [super dealloc];
-}
+
 
 - (NSString *)procedureName
 {

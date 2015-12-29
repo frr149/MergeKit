@@ -21,16 +21,12 @@
 
 @implementation _MiscMergeFieldCommand
 
-- (void)dealloc
-{
-    [expression release];
-    [super dealloc];
-}
+
 
 - (BOOL)parseFromScanner:(NSScanner *)aScanner template:(MiscMergeTemplate *)template
 {
     [self eatKeyWord:@"field" fromScanner:aScanner isOptional:YES];
-    expression = [[self getExpressionFromScanner:aScanner] retain];
+    expression = [self getExpressionFromScanner:aScanner];
     return YES;
 }
 

@@ -49,11 +49,7 @@
     return [self initWithOwner:nil];
 }
 
-- (void)dealloc
-{
-    [commandArray release];
-    [super dealloc];
-}
+
 
 /*" Returns the NSArray of MiscMergeCommands "*/
 - (NSArray *)commandArray

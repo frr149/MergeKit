@@ -167,18 +167,6 @@ static NSMutableDictionary *globalSymbols = nil;
     return self;
 }
 
-- (void)dealloc
-{
-    [userInfo release];
-    [contextStack release];
-    [commandStack release];
-    [engineSymbols release];
-    [mergeSymbols release];
-    [template release];
-    [currentObject release];
-    [outputString release];
-    [super dealloc];
-}
 
 /*"
  * Returns whether delimiters around unresolvable field names will be left

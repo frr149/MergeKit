@@ -20,12 +20,7 @@
 
 @implementation _MiscMergeSetCommand
 
-- (void)dealloc
-{
-    [field1 release];
-    [expression release];
-    [super dealloc];
-}
+
 
 // Override this to set what the command string should be
 - (NSString *)commandString
@@ -44,12 +39,12 @@
     [self eatKeyWord:[self commandString] fromScanner:aScanner isOptional:NO];
 
     field1 = [self getArgumentStringFromScanner:aScanner toEnd:NO];
-    field1 = [[field1 stringByTrimmingWhitespace] retain];
+    field1 = [field1 stringByTrimmingWhitespace];
 
     if ( ![self eatKeyWord:@"=" fromScanner:aScanner isOptional:YES] )
         [self error_conditional:[NSString stringWithFormat:@"%@ requires operator to be an =.", [self commandString]]];
 
-    expression = [[self getExpressionFromScanner:aScanner] retain];
+    expression = [self getExpressionFromScanner:aScanner];
 
     return YES;
 }

@@ -28,11 +28,6 @@
 
 @implementation _MiscMergeDateCommand
 
-- (void)dealloc
-{
-    [dateFormat release];
-    [super dealloc];
-}
 
 - (BOOL)parseFromScanner:(NSScanner *)aScanner template:(MiscMergeTemplate *)template
 {

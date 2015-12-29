@@ -27,8 +27,8 @@ static NSNumber *FALSE_VALUE;
 + (void)initialize
 {
     if ( TRUE_VALUE == nil ) {
-        TRUE_VALUE = [[NSNumber numberWithBool:YES] retain];
-        FALSE_VALUE = [[NSNumber numberWithBool:NO] retain];
+        TRUE_VALUE = [NSNumber numberWithBool:YES];
+        FALSE_VALUE = [NSNumber numberWithBool:NO];
     }
 }
 
@@ -62,11 +62,7 @@ static NSNumber *FALSE_VALUE;
     return self;
 }
 
-- (void)dealloc
-{
-    [valueName release];
-    [super dealloc];
-}
+
 
 - (id)evaluateWithEngine:(MiscMergeEngine *)anEngine
 {
@@ -83,7 +79,7 @@ static NSNumber *FALSE_VALUE;
 
 + (MiscMergeValueExpression *)valueName:(NSString *)string quotes:(int)number
 {
-    return [[[self alloc] initWithValueName:string quotes:number] autorelease];
+    return [[self alloc] initWithValueName:string quotes:number];
 }
 
 @end
@@ -95,16 +91,12 @@ static NSNumber *FALSE_VALUE;
 {
     self = [super init];
     if ( self ) {
-        expression = [anExpression retain];
+        expression = anExpression;
     }
     return self;
 }
 
-- (void)dealloc
-{
-    [expression release];
-    [super dealloc];
-}
+
 
 - (NSString *)nameDescription
 {
@@ -117,7 +109,7 @@ static NSNumber *FALSE_VALUE;
 
 + (MiscMergeUnaryOpExpression *)expression:(MiscMergeExpression *)anExpression
 {
-    return [[[self alloc] initWithExpression:anExpression] autorelease];
+    return [[self alloc] initWithExpression:anExpression];
 }
 
 @end
@@ -159,19 +151,14 @@ static NSNumber *FALSE_VALUE;
 {
     self = [super init];
     if ( self ) {
-        leftExpression = [lExpression retain];
-        rightExpression = [rExpression retain];
+        leftExpression = lExpression;
+        rightExpression = rExpression ;
         operator = anOperator;
     }
     return self;
 }
 
-- (void)dealloc
-{
-    [leftExpression release];
-    [rightExpression release];
-    [super dealloc];
-}
+
 
 - (NSString *)nameDescription
 {
@@ -191,7 +178,7 @@ static NSNumber *FALSE_VALUE;
                                        operator:(MiscMergeOperator)anOperator
                                 rightExpression:(MiscMergeExpression *)rExpression
 {
-    return [[[self alloc] initWithLeftExpression:lExpression operator:anOperator rightExpression:rExpression] autorelease];
+    return [[self alloc] initWithLeftExpression:lExpression operator:anOperator rightExpression:rExpression] ;
 }
 
 @end
@@ -418,16 +405,11 @@ static NSNumber *FALSE_VALUE;
 {
     self = [super init];
     if ( self ) {
-        expressions = [list retain];
+        expressions = list;
     }
     return self;
 }
 
-- (void)dealloc
-{
-    [expressions release];
-    [super dealloc];
-}
 
 - (void)addExpression:(MiscMergeExpression *)expression
 {
@@ -458,12 +440,12 @@ static NSNumber *FALSE_VALUE;
 + (MiscMergeGroupExpression *)expression:(MiscMergeExpression *)lExpression
                            andExpression:(MiscMergeExpression *)rExpression
 {
-    return [[[self alloc] initWithExpression:lExpression andExpression:rExpression] autorelease];
+    return [[self alloc] initWithExpression:lExpression andExpression:rExpression];
 }
 
 + (MiscMergeGroupExpression *)expressions:(NSArray *)list
 {
-    return [[[self alloc] initWithExpressions:list] autorelease];
+    return [[self alloc] initWithExpressions:list];
 }
 
 @end

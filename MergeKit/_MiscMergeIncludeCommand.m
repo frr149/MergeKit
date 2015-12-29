@@ -23,11 +23,7 @@
 
 @implementation _MiscMergeIncludeCommand
 
-- (void)dealloc
-{
-    [commandBlock release];
-    [super dealloc];
-}
+
 
 - (BOOL)parseFromScanner:(NSScanner *)aScanner template:(MiscMergeTemplate *)template
 {
@@ -53,7 +49,7 @@
     resolvedFilename = [template resolveTemplateFilename:filename];
 
     if ([resolvedFilename length] > 0)
-        fileString = [[[NSString alloc] initWithContentsOfFile:resolvedFilename] autorelease];
+        fileString = [[NSString alloc] initWithContentsOfFile:resolvedFilename];
 
     if (fileString)
     {
@@ -67,8 +63,8 @@
         [newTemplate setFilename:resolvedFilename];
         [newTemplate setDelegate:[template delegate]];
         [newTemplate parseString:fileString];
-        commandBlock = [[newTemplate topLevelCommandBlock] retain];
-        [newTemplate release];
+        commandBlock = [newTemplate topLevelCommandBlock];
+
     }
     else
     {

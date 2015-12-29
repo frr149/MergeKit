@@ -28,17 +28,12 @@
     return self;
 }
 
-- (void)dealloc
-{
-    [expression release];
-    [commandBlock release];
-    [super dealloc];
-}
+
 
 - (BOOL)parseFromScanner:(NSScanner *)aScanner template:(MiscMergeTemplate *)template
 {
     [self eatKeyWord:@"while" fromScanner:aScanner isOptional:NO];
-    expression = [[self getExpressionFromScanner:aScanner] retain];
+    expression = [self getExpressionFromScanner:aScanner];
     [template pushCommandBlock:commandBlock];
 
     return YES;
