@@ -124,5 +124,16 @@
     
 }
 
+-(void) testThatInitializingATemplateWithAFileDoesntReturnNil{
+    
+    NSBundle *testBundle = [NSBundle bundleForClass:[self class]];
+    NSURL *url = [testBundle URLForResource:@"Test" withExtension:@"txt"];
+    
+    MiscMergeTemplate *tpl = [[MiscMergeTemplate alloc] initWithContentsOfFile:url.path];
+    
+    XCTAssertNotNil(tpl);
+    
+
+}
 
 @end

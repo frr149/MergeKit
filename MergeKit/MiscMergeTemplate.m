@@ -448,6 +448,12 @@
         [scanner setCharactersToBeSkipped:nil];
         _lineNumber = 1;
         
+        // When _parseStopChars is nil, it means no customized delimiters were
+        // provided. We use the default ones.
+        if (_parseStopChars == nil) {
+            [self setStartDelimiter:[[self class] defaultStartDelimiter]
+                       endDelimiter:[[self class] defaultEndDelimiter]];
+        }
         // may want to flush localPool every 50 loops or so...
         while (![scanner isAtEnd])
         {
