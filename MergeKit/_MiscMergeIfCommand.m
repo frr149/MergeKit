@@ -25,8 +25,10 @@
 
 - (id)init
 {
-    [super init];
-    trueBlock = [[MiscMergeCommandBlock alloc] initWithOwner:self];
+    if (self = [super init]){
+        trueBlock = [[MiscMergeCommandBlock alloc] initWithOwner:self];
+    };
+    
     return self;
 }
 

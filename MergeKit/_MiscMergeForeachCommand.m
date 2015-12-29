@@ -27,8 +27,10 @@
 
 - init
 {
-    [super init];
-    commandBlock = [[MiscMergeCommandBlock alloc] initWithOwner:self];
+    if (self = [super init]){
+        commandBlock = [[MiscMergeCommandBlock alloc] initWithOwner:self];
+
+    }
     return self;
 }
 

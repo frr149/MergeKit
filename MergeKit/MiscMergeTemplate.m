@@ -111,11 +111,13 @@
  "*/
 - init
 {
-    [super init];
-    topLevelCommands = [[MiscMergeCommandBlock alloc] init];
-    commandStack = [NSMutableArray arrayWithObject:topLevelCommands];
-    startDelimiter = [[self class] defaultStartDelimiter];
-    endDelimiter = [[self class] defaultEndDelimiter];
+    if (self = [super init]){
+        topLevelCommands = [[MiscMergeCommandBlock alloc] init];
+        commandStack = [NSMutableArray arrayWithObject:topLevelCommands];
+        startDelimiter = [[self class] defaultStartDelimiter];
+        endDelimiter = [[self class] defaultEndDelimiter];
+    }
+    
     return self;
 }
 
@@ -124,8 +126,9 @@
  "*/
 - initWithString:(NSString *)string
 {
-    [self init];
-    [self parseString:string];
+    if (self = [self init]) {
+        [self parseString:string];
+    }
     return self;
 }
 
