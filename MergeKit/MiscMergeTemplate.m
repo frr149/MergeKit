@@ -14,11 +14,8 @@
 //	for a list of all applicable permissions and restrictions.
 //
 
+@import Foundation;
 #import "MiscMergeTemplate.h"
-#import <Foundation/NSCharacterSet.h>
-#import <Foundation/NSArray.h>
-//#import <Foundation/NSUtilities.h>
-#import <Foundation/NSAutoreleasePool.h>
 #import <Foundation/NSObjCRuntime.h>
 #import "NSString+MiscAdditions.h"
 #import "NSScanner+MiscMerge.h"

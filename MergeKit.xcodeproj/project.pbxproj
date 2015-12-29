@@ -126,6 +126,7 @@
 		ED3CBBFD1C3308AB005F02DD /* KeyValue+MiscMerge.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3CBBFB1C3308AB005F02DD /* KeyValue+MiscMerge.m */; };
 		ED3CBBFE1C3308AB005F02DD /* KeyValue+MiscMerge.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3CBBFB1C3308AB005F02DD /* KeyValue+MiscMerge.m */; };
 		ED3CBC021C3319AA005F02DD /* Test.txt in Resources */ = {isa = PBXBuildFile; fileRef = ED3CBC011C3319AA005F02DD /* Test.txt */; };
+		ED3CBC051C332499005F02DD /* MGKSimpleData.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3CBC041C332499005F02DD /* MGKSimpleData.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -224,6 +225,8 @@
 		ED3CBBFB1C3308AB005F02DD /* KeyValue+MiscMerge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "KeyValue+MiscMerge.m"; sourceTree = "<group>"; };
 		ED3CBC001C3308EA005F02DD /* MiscMerge.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = MiscMerge.rtf; sourceTree = "<group>"; };
 		ED3CBC011C3319AA005F02DD /* Test.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Test.txt; sourceTree = "<group>"; };
+		ED3CBC031C332499005F02DD /* MGKSimpleData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGKSimpleData.h; sourceTree = "<group>"; };
+		ED3CBC041C332499005F02DD /* MGKSimpleData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGKSimpleData.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -282,6 +285,8 @@
 				ED3CBB2C1C33081D005F02DD /* MergeKitTests.m */,
 				ED3CBB2E1C33081D005F02DD /* Info.plist */,
 				ED3CBC011C3319AA005F02DD /* Test.txt */,
+				ED3CBC031C332499005F02DD /* MGKSimpleData.h */,
+				ED3CBC041C332499005F02DD /* MGKSimpleData.m */,
 			);
 			path = MergeKitTests;
 			sourceTree = "<group>";
@@ -605,6 +610,7 @@
 				ED3CBBF81C33088C005F02DD /* NSString+MiscAdditions.m in Sources */,
 				ED3CBBAE1C330865005F02DD /* _MiscMergeIndexCommand.m in Sources */,
 				ED3CBBB41C330865005F02DD /* _MiscMergeNextCommand.m in Sources */,
+				ED3CBC051C332499005F02DD /* MGKSimpleData.m in Sources */,
 				ED3CBBDC1C33088C005F02DD /* MiscMergeCommand.m in Sources */,
 				ED3CBB7B1C330865005F02DD /* _MiscMergeContinueCommand.m in Sources */,
 				ED3CBB2D1C33081D005F02DD /* MergeKitTests.m in Sources */,

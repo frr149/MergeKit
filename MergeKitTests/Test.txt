@@ -1,1 +1,1 @@
-This is my first template for {name}.
+This is my first template for <$name$>.
