@@ -13,4 +13,12 @@
 -(NSString*) name{
     return @"Chewbacca";
 }
+
+-(NSArray *) species{
+    return @[@"human", @"wookie", @"hutt", @"Mon Calamari", @"ewok"];
+}
+
+-(NSInteger) salary{
+    return 12900;
+}
 @end

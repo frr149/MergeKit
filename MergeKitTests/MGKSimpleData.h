@@ -10,5 +10,6 @@
 
 @interface MGKSimpleData : NSObject
 @property (copy, nonatomic, readonly) NSString *name;
-
+@property (nonatomic, readonly) NSArray *species;
+@property (readonly) NSInteger salary;
 @end

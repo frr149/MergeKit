@@ -802,6 +802,7 @@
 				ED3CBB331C33081D005F02DD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		ED3CBB341C33081D005F02DD /* Build configuration list for PBXNativeTarget "MergeKitTests" */ = {
 			isa = XCConfigurationList;
@@ -810,6 +811,7 @@
 				ED3CBB361C33081D005F02DD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
