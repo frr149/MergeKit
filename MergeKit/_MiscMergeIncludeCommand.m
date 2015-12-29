@@ -49,7 +49,7 @@
     resolvedFilename = [template resolveTemplateFilename:filename];
 
     if ([resolvedFilename length] > 0)
-        fileString = [[NSString alloc] initWithContentsOfFile:resolvedFilename];
+        fileString = [[NSString alloc] initWithContentsOfFile:resolvedFilename encoding:NSUTF8StringEncoding error:nil];
 
     if (fileString)
     {

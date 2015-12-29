@@ -39,8 +39,11 @@
 "*/
 - initWithOwner:(id)anOwner
 {
-    commandArray = [[NSMutableArray alloc] init];
-    owner = anOwner;
+    if (self = [super init]) {
+        commandArray = [[NSMutableArray alloc] init];
+        owner = anOwner;
+    }
+   
     return self;
 }
 

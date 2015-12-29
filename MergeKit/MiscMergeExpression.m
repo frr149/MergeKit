@@ -405,7 +405,7 @@ static NSNumber *FALSE_VALUE;
 {
     self = [super init];
     if ( self ) {
-        expressions = list;
+        expressions = [NSMutableArray arrayWithArray:list];
     }
     return self;
 }
@@ -430,7 +430,7 @@ static NSNumber *FALSE_VALUE;
         if ( index > 0 )
             [string appendString:@","];
 
-        [string appendFormat:@"%d=%@", index, [expressions objectAtIndex:index]];
+        [string appendFormat:@"%ld=%@", (long)index, [expressions objectAtIndex:index]];
     }
 
     [string appendString:@")"];
