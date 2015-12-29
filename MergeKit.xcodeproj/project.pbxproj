@@ -125,6 +125,7 @@
 		ED3CBBFC1C3308AB005F02DD /* KeyValue+MiscMerge.h in Headers */ = {isa = PBXBuildFile; fileRef = ED3CBBFA1C3308AB005F02DD /* KeyValue+MiscMerge.h */; };
 		ED3CBBFD1C3308AB005F02DD /* KeyValue+MiscMerge.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3CBBFB1C3308AB005F02DD /* KeyValue+MiscMerge.m */; };
 		ED3CBBFE1C3308AB005F02DD /* KeyValue+MiscMerge.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3CBBFB1C3308AB005F02DD /* KeyValue+MiscMerge.m */; };
+		ED3CBC021C3319AA005F02DD /* Test.txt in Resources */ = {isa = PBXBuildFile; fileRef = ED3CBC011C3319AA005F02DD /* Test.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -222,6 +223,7 @@
 		ED3CBBFA1C3308AB005F02DD /* KeyValue+MiscMerge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "KeyValue+MiscMerge.h"; sourceTree = "<group>"; };
 		ED3CBBFB1C3308AB005F02DD /* KeyValue+MiscMerge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "KeyValue+MiscMerge.m"; sourceTree = "<group>"; };
 		ED3CBC001C3308EA005F02DD /* MiscMerge.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = MiscMerge.rtf; sourceTree = "<group>"; };
+		ED3CBC011C3319AA005F02DD /* Test.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Test.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -279,6 +281,7 @@
 			children = (
 				ED3CBB2C1C33081D005F02DD /* MergeKitTests.m */,
 				ED3CBB2E1C33081D005F02DD /* Info.plist */,
+				ED3CBC011C3319AA005F02DD /* Test.txt */,
 			);
 			path = MergeKitTests;
 			sourceTree = "<group>";
@@ -525,6 +528,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ED3CBC021C3319AA005F02DD /* Test.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

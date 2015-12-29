@@ -137,7 +137,7 @@
  "*/
 - initWithContentsOfFile:(NSString *)filename
 {
-    NSString *fileString = [[NSString alloc] initWithContentsOfFile:filename];
+    NSString *fileString = [[NSString alloc] initWithContentsOfFile:filename encoding:NSUTF8StringEncoding error:nil];
     if (fileString == nil) NSLog(@"%@: Could not read template file %@", [self class], filename);
     return [self initWithString:fileString];
 }
@@ -424,7 +424,7 @@
  "*/
 - (void)parseContentsOfFile:(NSString *)filename
 {
-    NSString *string = [[NSString alloc] initWithContentsOfFile:filename];
+    NSString *string = [[NSString alloc] initWithContentsOfFile:filename encoding:NSUTF8StringEncoding error:nil];
     if (string == nil) NSLog(@"%@: Could not read template file %@", [self class], filename);
     [self setFilename:filename];
     [self parseString:string];
