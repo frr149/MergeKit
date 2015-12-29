@@ -19,7 +19,6 @@
 #import "MiscMergeEngine.h"
 #import "MiscMergeTemplate.h"
 #import "MiscMergeCommandBlock.h"
-#import "NSNull.h"
 #import "NSScanner+MiscMerge.h"
 
 typedef enum _ArgTypes {
@@ -32,10 +31,11 @@ typedef enum _ArgTypes {
 
 - init
 {
-    [super init];
-    commandBlock = [[MiscMergeCommandBlock alloc] initWithOwner:self];
-    argumentArray = [[NSMutableArray alloc] init];
-    argumentTypes = [[NSMutableArray alloc] init];
+    if (self =[super init]){;
+        commandBlock = [[MiscMergeCommandBlock alloc] initWithOwner:self];
+        argumentArray = [[NSMutableArray alloc] init];
+        argumentTypes = [[NSMutableArray alloc] init];
+    }
     return self;
 }
 
@@ -52,7 +52,7 @@ typedef enum _ArgTypes {
     BOOL optArgProcessing = NO;
 
     [self eatKeyWord:@"procedure" fromScanner:aScanner isOptional:NO];
-    procedureName = [[self getArgumentStringFromScanner:aScanner toEnd:NO] retain];
+    procedureName = [self getArgumentStringFromScanner:aScanner toEnd:NO];
 
     while ((argName = [self getArgumentStringFromScanner:aScanner toEnd:NO])) {
         if ( [argName hasSuffix:@"?"] ) {

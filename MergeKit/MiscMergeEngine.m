@@ -14,16 +14,12 @@
 //	for a list of all applicable permissions and restrictions.
 //
 
+@import Foundation;
 #import "MiscMergeEngine.h"
-#import <Foundation/NSString.h>
-#import <Foundation/NSDictionary.h>
-#import <Foundation/NSArray.h>
-#import <Foundation/NSAutoreleasePool.h>
 #import "MiscMergeTemplate.h"
 #import "MiscMergeCommand.h"
 #import "MiscMergeCommandBlock.h"
 #import "KeyValue+MiscMerge.h"
-#import "NSNull.h"
 #import "MiscMergeFunctions.h"
 
 #define RECURSIVE_LOOKUP_LIMIT 100
@@ -47,17 +43,17 @@
  * field names in the template, and the values returned will be substituted
  * in the output. An NSString will be returned that contains the results of
  * the merge.
- * 
+ *
  * The rest of the methods are an API to the internal state of the engine
  * which may be used in MiscMergeCommand subclass implementations.
- * 
+ *
  * To implement MiscMergeCommands, it is important to understand some of
  * the internals of the MiscMergeEngine class.
- * 
+ *
  * The main thing to know is that there is an "output" string that is kept
  * throughout the merge and returned at the end.  MiscMergeCommands should
  * append strings to it as necessary with the -#{appendToOutput:} method.
- * 
+ *
  * The MiscMergeEngine resolves field names through a series of symbol
  * tables.  Commands can request that arguments be "resolved" through these
  * symbol tables with the -#{valueForField:} method. The process is to walk
@@ -68,21 +64,21 @@
  * are searched first. If the key is not found, then the "parent" merge, if
  * it exists, is consulted. If the key is not found, then the key itself is
  * returned.
- * 
+ *
  * If recursive lookups are turned on, the value returned by a lookup will
  * be used as a field name and the lookup repeated, causing an indirection
  * to take place (if a value is found for the new field name). This process
  * will be repeated as far as possible, so there can be multiple levels of
  * indirection.  Use the -#setUseRecursiveLookups: method to turn this
  * feature on or off.
- * 
+ *
  * By doing this extensive resolution, it is possible to use
  * MiscMergeCommands to create aliases for field names.  It is also
  * possible to use the global tables to contain "default" values for any
  * merge fields that might turn up empty on a particular merge.  Note that
  * there are specific methods which may be used to manipulate the local,
  * engine, and global symbol tables, as well as set up the parent merge.
- * 
+ *
  * Another special feature of the MiscMergeEngine is that it can carry
  * internal "variables" in its userInfo dictionary.  A variable is some
  * object that contains state and needs to be accessible throughout a
@@ -94,7 +90,7 @@
  * cleared at the start of a new merge, so only data pertaining to a merge
  * should be stored there.  This is the preferred way for MiscMergeCommands
  * to communicate with each other.
- * 
+ *
  * The current API should be adequate to perform most things a
  * MiscMergeCommand would want to do.  However, it is possible that more
  * functionality would be helpful or that some bit of information is still
@@ -102,7 +98,7 @@
  * Yacktman, don@misckit.com) and he will consider enhancing the API to
  * this object as necessary.  Of course, subclasses and categories might
  * also be workable approaches to such deficiencies.
-"*/
+ "*/
 
 static NSMutableDictionary *globalSymbols = nil;
 
@@ -111,7 +107,7 @@ static NSMutableDictionary *globalSymbols = nil;
  * Global symbols are the last context searched when resolving names, and
  * are valid for every merge done in your program (i.e. the same dictionary
  * is used in all MiscMergeEngine instances).
-"*/
+ "*/
 + (NSMutableDictionary *)globalSymbolsDictionary
 {
     if (globalSymbols == nil) globalSymbols = [[NSMutableDictionary alloc] init];
@@ -121,7 +117,7 @@ static NSMutableDictionary *globalSymbols = nil;
 /*"
  * Sets the global symbol aKey to anObject.  A value of nil is the same as
  * removing the value.
-"*/
+ "*/
 + (void)setGlobalValue:(id)anObject forKey:(NSString *)aKey
 {
     if (anObject == nil)
@@ -146,24 +142,26 @@ static NSMutableDictionary *globalSymbols = nil;
 /*" The designated initializer. "*/
 - init
 {
-    [super init];
-    userInfo      = [[NSMutableDictionary alloc] init];
-    engineSymbols = [[NSMutableDictionary alloc] init];
-    mergeSymbols  = [[NSMutableDictionary alloc] init];
-    localSymbols = mergeSymbols;
-    contextStack  = [[NSMutableArray alloc] init];
-    commandStack  = [[NSMutableArray alloc] init];
+    if (self =[super init]){
+        userInfo      = [[NSMutableDictionary alloc] init];
+        engineSymbols = [[NSMutableDictionary alloc] init];
+        mergeSymbols  = [[NSMutableDictionary alloc] init];
+        localSymbols = mergeSymbols;
+        contextStack  = [[NSMutableArray alloc] init];
+        commandStack  = [[NSMutableArray alloc] init];
+    }
     return self;
 }
 
 /*"
  * Initializes a new MiscMergeEngine instance, setting the current template
  * to %{aTemplate}.
-"*/
+ "*/
 - initWithTemplate:(MiscMergeTemplate *)aTemplate
 {
-    [self init];
-    [self setTemplate:aTemplate];
+    if (self = [self init]){
+        [self setTemplate:aTemplate];
+    }
     return self;
 }
 
@@ -173,7 +171,7 @@ static NSMutableDictionary *globalSymbols = nil;
  * in the generated output, or if just the field name itself will be left.
  * The default is NO; i.e. the field name will remain.  Setting this to YES
  * can be helpful during debugging.
-"*/
+ "*/
 - (BOOL)keepsDelimiters
 {
     return keepDelimiters;
@@ -182,7 +180,7 @@ static NSMutableDictionary *globalSymbols = nil;
 /*"
  * Sets whether to leave the delimiters in the generated output around
  * field names that could not be resolved.
-"*/
+ "*/
 - (void)setKeepsDelimiters:(BOOL)shouldKeep
 {
     keepDelimiters = shouldKeep;
@@ -222,7 +220,7 @@ static NSMutableDictionary *globalSymbols = nil;
  * results or even exceptions being raised.  Also, if an indirect value is
  * the same as a previously-resolved key, then the merge engine will go
  * into an infinite loop. By default, recursive lookups are turned off.
-"*/
+ "*/
 - (BOOL)useRecursiveLookups
 {
     return useRecursiveLookups;
@@ -231,7 +229,7 @@ static NSMutableDictionary *globalSymbols = nil;
 /*"
  * Set whether to use recursive lookups when resolving field names.
  * setUseRecursiveLookup
-"*/
+ "*/
 - (void)setUseRecursiveLookups:(BOOL)shouldRecurse
 {
     useRecursiveLookups = shouldRecurse;
@@ -260,7 +258,7 @@ static NSMutableDictionary *globalSymbols = nil;
 /*"
  * Returns the output string from the latest merge, the same string
  * returned by the -#execute: method.
-"*/
+ "*/
 - (NSString *)outputString
 {
     return outputString;
@@ -275,7 +273,7 @@ static NSMutableDictionary *globalSymbols = nil;
 /*"
  * Returns the userInfo dictionary, which can be manipulated by commands
  * for their needs.
-"*/
+ "*/
 - (NSMutableDictionary *)userInfo
 {
     return userInfo;
@@ -285,7 +283,7 @@ static NSMutableDictionary *globalSymbols = nil;
  * Sets the "parent" merge for this merge engine.  If a symbol cannot be
  * found in the receiving instance's symbol table during lookup, the parent
  * will be consulted to see if it is defined there.
-"*/
+ "*/
 - (void)setParentMerge:(MiscMergeEngine *)anEngine
 {
     parentMerge = anEngine;
@@ -313,7 +311,7 @@ static NSMutableDictionary *globalSymbols = nil;
  * removing the value.  The engine symbols are searched after the main
  * object but before the global symbols when resolving a name.  They remain
  * valid for every merge executed by the receiving MiscMergeEngine instance.
-"*/
+ "*/
 - (void)setEngineValue:(id)anObject forKey:(NSString *)aKey
 {
     if (anObject)
@@ -340,7 +338,7 @@ static NSMutableDictionary *globalSymbols = nil;
  * object when resolving a name.  Local symbols are only valid for the
  * current merge; the local symbol table is emptied before executing a
  * merge.
-"*/
+ "*/
 - (void)setMergeValue:(id)anObject forKey:(NSString *)aKey
 {
     if (anObject)
@@ -366,7 +364,7 @@ static NSMutableDictionary *globalSymbols = nil;
  * object when resolving a name.  Local symbols are only valid for the
  * current merge; the local symbol table is emptied before executing a
  * merge.
-"*/
+ "*/
 - (void)setLocalValue:(id)anObject forKey:(NSString *)aKey
 {
     if (anObject)
@@ -390,11 +388,11 @@ static NSMutableDictionary *globalSymbols = nil;
  * Adds a new context for symbol lookups.  MiscMergeCommands can use this
  * to add their own contexts to define variables that last only during the
  * execution of that command.
-"*/
+ "*/
 - (void)addContextObject:(id)anObject andSetLocalSymbols:(BOOL)flag
 {
     [contextStack addObject:anObject];
-
+    
     if ( flag && [anObject isKindOfClass:[NSMutableDictionary class]] )
         localSymbols = anObject;
 }
@@ -413,21 +411,21 @@ static NSMutableDictionary *globalSymbols = nil;
     {
         // should only remove last occurrence, not all FIXME
         [contextStack removeObjectIdenticalTo:anObject];
-
+        
         if ( anObject == localSymbols ) {
             NSInteger i;
-
+            
             localSymbols = nil;
-
+            
             for ( i = [contextStack count] - 1; i >= 0; i-- ) {
                 id object = [contextStack objectAtIndex:i];
-
+                
                 if ( [object isKindOfClass:[NSMutableDictionary class]] ) {
                     localSymbols = object;
                     break;
                 }
             }
-
+            
             if ( localSymbols == nil ) {
                 localSymbols = mergeSymbols;
             }
@@ -451,18 +449,18 @@ static NSMutableDictionary *globalSymbols = nil;
  * Sets the main data object.  The next invocation of -#{execute:} will use
  * %{anObject} as the main data object for the merge.  Can be called during
  * a merge to change the main object.
-"*/
+ "*/
 - (void)setMainObject:(id)anObject
 {
     NSUInteger oldIndex = NSNotFound;
-
+    
     if (currentObject != nil)
     {
         oldIndex = [contextStack indexOfObject:currentObject];
         if (oldIndex != NSNotFound)
             [contextStack removeObjectAtIndex:oldIndex];
     }
-
+    
     /* Insert the new object; if there was no previous object put before local symbols. */
     if (anObject != nil) {
         if (oldIndex == NSNotFound)
@@ -471,8 +469,6 @@ static NSMutableDictionary *globalSymbols = nil;
             [contextStack insertObject:anObject atIndex:oldIndex];
     }
 
-    [anObject retain];
-    [currentObject release];
     currentObject = anObject;
 }
 
@@ -480,11 +476,10 @@ static NSMutableDictionary *globalSymbols = nil;
  * Sets the current merge template.  All future invocations of -#{execute:}
  * will use %{aTemplate} as the merge template, until this method is called
  * again.
-"*/
+ "*/
 - (void)setTemplate:(MiscMergeTemplate *)aTemplate
 {
-    [aTemplate retain];
-    [template release];
+
     template = aTemplate;
 }
 
@@ -494,27 +489,27 @@ static NSMutableDictionary *globalSymbols = nil;
  * returned.  If unsuccessful, nil is returned.  The argument %{sender}
  * should be the initiating driver.  If not, some commands, such as "next"
  * will not work properly.
-"*/
+ "*/
 - (NSString *)execute:sender
 {
     driver = sender;
-
+    
     aborted = NO;
-    [outputString release];
+
     outputString = [[NSMutableString alloc] init];
     [contextStack removeAllObjects];
     [commandStack removeAllObjects];
     [mergeSymbols removeAllObjects];
-
+    
     [contextStack addObject:[[self class] globalSymbolsDictionary]];
     [contextStack addObject:engineSymbols];
     if (currentObject) [contextStack addObject:currentObject];
     [contextStack addObject:mergeSymbols];
-
+    
     [self executeCommandBlock:[template topLevelCommandBlock]];
-
+    
     driver = nil;
-
+    
     if (aborted) return @"";
     return outputString;
 }
@@ -526,7 +521,7 @@ static NSMutableDictionary *globalSymbols = nil;
  * not, some commands, such as "next" will not work properly.  This method
  * is just a convenience method that calls -#setMainObject: and then
  * -#execute:.
-"*/
+ "*/
 - (NSString *)executeWithObject:(id)anObject sender:sender
 {
     [self setMainObject:anObject];
@@ -537,7 +532,7 @@ static NSMutableDictionary *globalSymbols = nil;
  * Executes a single command.  MiscMergeCommand subclasses should always
  * call this method instead of calling -executeForMerge: on the command
  * itself if they need to execute a command.
-"*/
+ "*/
 - (MiscMergeCommandExitType)executeCommand:(MiscMergeCommand *)command
 {
     /*
@@ -552,13 +547,14 @@ static NSMutableDictionary *globalSymbols = nil;
  * Executes all the commands in block.  MiscMergeCommand subclasses should
  * use this method when they need to execute a command block.  A local
  * autorelease pool is used during execution of the block.
-"*/
+ "*/
 - (MiscMergeCommandExitType)executeCommandBlock:(MiscMergeCommandBlock *)block
 {
-    NSAutoreleasePool *localPool = [[NSAutoreleasePool alloc] init];
+
     NSArray *commandArray = [block commandArray];
     NSInteger i, count = [commandArray count];
     MiscMergeCommandExitType exitCode = MiscMergeCommandExitNormal;
+    
     /*
      * Maintain the execution stack.  This stack isn't being used at the
      * moment, but command implementations may in the future make use of it
@@ -566,13 +562,17 @@ static NSMutableDictionary *globalSymbols = nil;
      */
     [commandStack addObject:block];
 
-    for (i=0; (exitCode == MiscMergeCommandExitNormal) && (i<count); i++)
-    {
-        exitCode = [self executeCommand:[commandArray objectAtIndex:i]];
+    @autoreleasepool {
+                
+        for (i=0; (exitCode == MiscMergeCommandExitNormal) && (i<count); i++)
+        {
+            exitCode = [self executeCommand:[commandArray objectAtIndex:i]];
+        }
+        
+        [commandStack removeLastObject];
     }
-
-    [commandStack removeLastObject];
-    [localPool drain];
+    
+    
     return exitCode;
 }
 
@@ -588,7 +588,7 @@ static NSMutableDictionary *globalSymbols = nil;
  * then the field string itself is returned (unless keepDelimiters is set
  * to YES, in which case the field string surrounded by the original field
  * delimiters will be returned).
-"*/
+ "*/
 - (id)valueForField:(NSString *)fieldName quoted:(int)quoted
 {
     NSInteger  i;
@@ -598,20 +598,20 @@ static NSMutableDictionary *globalSymbols = nil;
     BOOL found = NO;
     BOOL prevFound = NO;
     int lookupCount = 0;
-
+    
     if ( quoted == 1 )
         return fieldName;
-
+    
     for (i=[contextStack count]; i > 0 && !found; i--)
     {
         id currContext = [contextStack objectAtIndex:i-1];
-
+        
         if ([currContext hasMiscMergeKeyPath:fieldName])
         {
             value = [currContext valueForKeyPath:fieldName];
             found = YES;
         }
-
+        
         /*
          * If recursive lookup is on, use the current value as a fieldName
          * and restart the search.  Store the last found value, so we know
@@ -629,15 +629,15 @@ static NSMutableDictionary *globalSymbols = nil;
         else if ( useRecursiveLookups && (lookupCount >= recursiveLookupLimit) )
             NSLog(@"Recursion limit %d reached for %@.", recursiveLookupLimit, fieldName);
     }
-
+    
     if (value == [NSNull null]) value = nil;
-
+    
     /* If we found it, return it. */
     if (found) returnValue = value;
-
+    
     /* If the previous iteration of the recursive search found it, return it */
     else if (prevFound) returnValue = prevValue;
-
+    
     if ( found || prevFound ) {
         if ( returnValue == nil ) {
             switch ( nilLookupResult ) {
@@ -653,28 +653,28 @@ static NSMutableDictionary *globalSymbols = nil;
                 case MiscMergeNilLookupResultKeyWithDelims:
                     returnValue = [NSString stringWithFormat:@"%@%@%@", [template startDelimiter], fieldName, [template endDelimiter]];
                     break;
-
+                    
                 default:
                     break;
             }
         }
-
+        
         return returnValue;
     }
-
+    
     /* If not found, try our parent merge */
     if (parentMerge) return [parentMerge valueForField:fieldName quoted:quoted];
-
-    switch ( failedLookupResult ) {            
+    
+    switch ( failedLookupResult ) {
         case MiscMergeFailedLookupResultKeyWithDelims:
             return [NSString stringWithFormat:@"%@%@%@", [template startDelimiter], fieldName, [template endDelimiter]];
-
+            
         case MiscMergeFailedLookupResultNil:
             return nil;
             
         case MiscMergeFailedLookupResultKeyIfNumeric:
             return MMIsObjectANumber(fieldName) ? fieldName : nil;
-
+            
         case MiscMergeFailedLookupResultKey:
         default:
             return fieldName;
@@ -688,7 +688,7 @@ static NSMutableDictionary *globalSymbols = nil;
 
 /*"
  * Appends %{aString} to the merge output.
-"*/
+ "*/
 - (void)appendToOutput:(NSString *)aString
 {
     if ( aString != nil )
@@ -698,7 +698,7 @@ static NSMutableDictionary *globalSymbols = nil;
 /*"
  * Aborts the current merge.  This means that the merge output will be nil,
  * as well.
-"*/
+ "*/
 - (void)abortMerge
 {
     aborted = YES;
@@ -710,7 +710,7 @@ static NSMutableDictionary *globalSymbols = nil;
  * appear on the same "page" or document, for example. For it to work
  * properly, the driver that started the merge must respond to the
  * -#{advanceRecord} method.
-"*/
+ "*/
 - (void)advanceRecord
 {
     if ([driver respondsToSelector:@selector(advanceRecord)])

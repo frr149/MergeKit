@@ -14,23 +14,20 @@
 //	for a list of all applicable permissions and restrictions.
 //	
 
+@import Foundation;
 #import "_MiscMergeCallCommand.h"
-//#import <Foundation/NSUtilities.h>
-#import <Foundation/NSArray.h>
-#import <Foundation/NSDictionary.h>
-#import <Foundation/NSValue.h>
-#import <Foundation/NSString.h>
 #import "MiscMergeEngine.h"
 #import "_MiscMergeProcedureCommand.h"
-#import "NSNull.h"
+
 
 @implementation _MiscMergeCallCommand
 
 - init
 {
-    [super init];
-    argumentArray = [[NSMutableArray alloc] init];
-    quotedArray = [[NSMutableArray alloc] init];
+    if (self =[super init]){
+        argumentArray = [[NSMutableArray alloc] init];
+        quotedArray = [[NSMutableArray alloc] init];
+    }
     return self;
 }
 
@@ -41,7 +38,7 @@
     int quotes;
 
     [self eatKeyWord:@"call" fromScanner:aScanner isOptional:NO];
-    procedureName = [[self getArgumentStringFromScanner:aScanner toEnd:NO] retain];
+    procedureName = [self getArgumentStringFromScanner:aScanner toEnd:NO];
 
     while ((argName = [self getArgumentStringFromScanner:aScanner toEnd:NO quotes:&quotes]))
     {

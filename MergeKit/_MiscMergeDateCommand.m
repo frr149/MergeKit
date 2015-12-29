@@ -14,15 +14,9 @@
 //	for a list of all applicable permissions and restrictions.
 //	
 
+@import Foundation;
 #import "_MiscMergeDateCommand.h"
-#import <Foundation/NSString.h>
-#import <Foundation/NSDate.h>
-
-/* On YellowBox, NSCalendarDate is now in its own header */
 #import <Foundation/NSObjCRuntime.h>
-#if defined(FOUNDATION_STATIC_INLINE) || defined(GNUSTEP)
-#import <Foundation/NSCalendarDate.h>
-#endif
 
 @class NSCalendarDate;
 
@@ -36,14 +30,16 @@
     if ([dateFormat length] == 0)
         dateFormat = @"%B %d, %Y";
 
-    [dateFormat retain];
+
     return YES;
 }
 
 - (MiscMergeCommandExitType)executeForMerge:(MiscMergeEngine *)aMerger
 {
-    NSCalendarDate *currentDate = (NSCalendarDate *)[NSCalendarDate date];
-    [aMerger appendToOutput:[currentDate descriptionWithCalendarFormat:dateFormat]];
+    NSDate *currentDate = [NSDate date];
+    NSDateFormatter *fmt = [NSDateFormatter new];
+    fmt.dateFormat = dateFormat;
+    [aMerger appendToOutput:[fmt stringFromDate:currentDate]];
     return MiscMergeCommandExitNormal;
 }
 
